@@ -58,10 +58,4 @@ public class UserController {
         userService.saveUser(user);
         return "redirect:/users";
     }
-//    @GetMapping("/user")
-//    public String user(Model model){
-//        List<User> users = userService.findAll();
-//        model.addAttribute("users", users);
-//        return "user";
-//    }
 }
