@@ -37,6 +37,8 @@ public class User implements UserDetails {
     inverseJoinColumns = @JoinColumn(name = "roleId"))
     private Set<Role> roles;
 
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -65,5 +67,17 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public User() {}
+
+    public User(Long id, String firstName, String lastName, int age, String email, String password, Set<Role> roles) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
     }
 }

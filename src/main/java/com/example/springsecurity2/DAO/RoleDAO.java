@@ -1,11 +1,9 @@
 package com.example.springsecurity2.DAO;
 
-
 import com.example.springsecurity2.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface UserDAO extends JpaRepository<User, Long> {
-    @Query("Select u from User u where u.firstName = :firstName")
-    User findByUsername(String firstName);
+public interface RoleDAO extends JpaRepository<User, Long> {
+
 }
