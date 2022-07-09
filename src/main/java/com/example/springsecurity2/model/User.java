@@ -1,52 +1,45 @@
 package com.example.springsecurity2.model;
 
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
-@Data
 @Entity
 @Table(name = "users")
-public class User implements UserDetails {
+public class User implements UserDetails{
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "age")
-    private int age;
-
-    @Column(name = "email")
-    private String email;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "password")
     private String password;
 
+    @Transient
+    private String confirmPassword;
+
     @ManyToMany
-    @JoinTable (name = "users_roles",
-    joinColumns = @JoinColumn(name = "userId"),
-    inverseJoinColumns = @JoinColumn(name = "roleId"))
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+    public Long getId() {
+        return id;
     }
 
-    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override
@@ -69,15 +62,38 @@ public class User implements UserDetails {
         return true;
     }
 
-    public User() {}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public User(Long id, String firstName, String lastName, int age, String email, String password, Set<Role> roles) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.email = email;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+
 }
