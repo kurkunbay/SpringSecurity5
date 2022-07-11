@@ -24,7 +24,9 @@
                 <td th:text="${user.id}"></td>
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.password}"></td>
-                <td th:text="${user.getRoles()}"></td>
+                <td><th:block th:each="role : ${user.getRoles()}">
+                    <span th:attr="data-role=${role.getLabel()}" th:text="${role.getLabel()}"></span>
+                </th:block></td>
 
                 <td><a th:href="@{admin/user-update/{id}(id=${user.id})}">Edit</a></td>
 

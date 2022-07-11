@@ -7,23 +7,44 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "roles")
-public class Role implements GrantedAuthority{
+@Table(name = "role")
+public class Role implements GrantedAuthority {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "name")
     private String name;
+    private String label;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
+    public Role(String name, String label) {
+        this.name = name;
+        this.label = label;
+    }
     public Role() {
+
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public void addUser(User user) {
+        users.add(user);
+    }
+
+    public void  removeUser(User user) {
+        users.remove(user);
     }
 
     public Long getId() {
@@ -42,25 +63,21 @@ public class Role implements GrantedAuthority{
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public String getLabel() {
+        return label;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", users=" + users +
-                '}';
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     @Override
     public String getAuthority() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return label;
     }
 }
