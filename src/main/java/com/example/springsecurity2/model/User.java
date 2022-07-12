@@ -26,6 +26,16 @@ public class User implements UserDetails{
     @Transient
     private String confirmPassword;
 
+    public User(Long id, String username, String password, String confirmPassword, Set<Role> roles) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+        this.roles = roles;
+    }
+
+    public User() {}
+
     @ManyToMany
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

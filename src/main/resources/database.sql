@@ -28,9 +28,9 @@ CREATE TABLE user_roles (
 
 -- Insert data
 
-INSERT INTO user VALUES (1, '12345', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG');
+INSERT INTO user VALUES (99, '12345', 'Admin12345');
 
 INSERT INTO role VALUES (1,'User', 'ROLE_USER');
 INSERT INTO role VALUES (2,'Admin', 'ROLE_ADMIN');
 
-INSERT INTO user_roles VALUES (1, 2);
+INSERT INTO user_roles VALUES (99, 2);
