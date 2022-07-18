@@ -11,34 +11,35 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User implements UserDetails{
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "password")
     private String password;
 
-    @Transient
-    private String confirmPassword;
 
-    public User(Long id, String username, String password, String confirmPassword, Set<Role> roles) {
+
+    public User(Long id, String username, String password,  Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.confirmPassword = confirmPassword;
         this.roles = roles;
     }
 
-    public User() {}
+    public User() {
+    }
 
     @ManyToMany
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+
     private Set<Role> roles = new HashSet<>();
 
     public Long getId() {
@@ -51,6 +52,25 @@ public class User implements UserDetails{
 
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
@@ -73,38 +93,9 @@ public class User implements UserDetails{
         return true;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
 
 }
