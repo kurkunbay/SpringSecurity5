@@ -24,8 +24,7 @@ public class User implements UserDetails {
     private String password;
 
 
-
-    public User(Long id, String username, String password,  Set<Role> roles) {
+    public User(Long id, String username, String password, Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -57,6 +56,7 @@ public class User implements UserDetails {
     public void setUsername(String username) {
         this.username = username;
     }
+
     public String getPassword() {
         return password;
     }

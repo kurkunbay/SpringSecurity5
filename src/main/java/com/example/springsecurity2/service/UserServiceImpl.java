@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
         this.roleDAO = roleDAO;
     }
 
-
     public User findById(Long id) {
         return userDAO.getOne(id);
     }

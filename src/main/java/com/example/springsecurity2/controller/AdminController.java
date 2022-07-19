@@ -36,7 +36,9 @@ public class AdminController {
     }
 
     @GetMapping("/user-create")
-    public String createUserForm(User user){
+    public String createUserForm(User user, Model model){
+        List<Role> listRoles = roleService.getAllRoles();
+        model.addAttribute("listRoles", listRoles);
         return "user-create";
     }
 

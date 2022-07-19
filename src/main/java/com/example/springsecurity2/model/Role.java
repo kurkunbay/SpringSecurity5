@@ -23,9 +23,8 @@ public class Role implements GrantedAuthority {
         this.name = name;
         this.label = label;
     }
-    public Role() {
 
-    }
+    public Role() {}
 
     public Set<User> getUsers() {
         return users;
@@ -39,7 +38,7 @@ public class Role implements GrantedAuthority {
         users.add(user);
     }
 
-    public void  removeUser(User user) {
+    public void removeUser(User user) {
         users.remove(user);
     }
 

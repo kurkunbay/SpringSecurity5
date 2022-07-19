@@ -19,25 +19,17 @@
                     <label th:for="password">Password</label>
                     <input class="form-control" type="password" th:field="*{password}"/>
                 </div>
-                <div class="form-group">
-                    <label th:for="newRoles">Roles</label>
-                    <select class="form-control" th:field="*{roles}">
-                        <th:block th:each="role : ${allRoles}">
-                            <option th:value="${role.getName()}" th:text="${role.getLabel()}"/>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Roles: </label>
+                    <div class="col-8">
+                        <th:block th:each="role: ${listRoles}">
+                            <input type="checkbox" th:field="*{roles}"
+                                   th:text="${role.name}" th:value="${role.id}" class="m-2"/>
                         </th:block>
-                    </select>
+                    </div>
                 </div>
-                <!--                <div class="form-group">-->
-                <!--                    <label th:for="newRoles">Roles</label>-->
-                <!--                    <select class="form-control" th:field="*{roles}" th:size="${allRoles.size()}" multiple required>-->
-                <!--                        <th:block th:each="role : ${allRoles}">-->
-                <!--                            <option th:value="${role.getName()}" th:text="${role.getLabel()}" />&nbsp;-->
-                <!--                        </th:block>-->
-                <!--                    </select>-->
-                <!--                </div>-->
                 </br>
                 </br>
-
                 <div class="form-group">
                     <input class="btn btn-success btn-lg" type="submit" value="Add new user">
                 </div>
