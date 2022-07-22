@@ -97,5 +97,9 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
+    public UserDetails fromUser() {
+        return new org.springframework.security.core.userdetails.User(
+                getUsername(), getPassword(), getAuthorities());
+    }
 
 }
