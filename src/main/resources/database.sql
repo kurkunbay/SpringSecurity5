@@ -9,8 +9,7 @@ CREATE TABLE user (
 -- Table: roles
 CREATE TABLE roles (
   id   INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  label VARCHAR(100) NOT NULL
+  name VARCHAR(100) NOT NULL
 )
   ENGINE = InnoDB;
 
@@ -30,7 +29,7 @@ CREATE TABLE user_roles (
 
 INSERT INTO user VALUES (99, '12345', 'Admin12345');
 
-INSERT INTO role VALUES (1,'User', 'ROLE_USER');
-INSERT INTO role VALUES (2,'Admin', 'ROLE_ADMIN');
+INSERT INTO role VALUES (1, 'ROLE_USER');
+INSERT INTO role VALUES (2, 'ROLE_ADMIN');
 
 INSERT INTO user_roles VALUES (99, 2);
