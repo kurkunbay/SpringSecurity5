@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     final UserService userService;
+
     @Autowired
     public UserDetailServiceImpl(UserService userService) {
         this.userService = userService;

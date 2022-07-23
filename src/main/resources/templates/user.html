@@ -5,6 +5,27 @@
     <title>Spring Security Example</title>
 </head>
 <body>
+<form th:action="@{/logout}" th:method="POST">
+    <button type="submit">Выйти из учетной записи</button>
+</form>
 <h1>User, welcome spring boot security page!</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>username</th>
+        <th>password</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th th:text="${userAuth.id}" scope="row"></th>
+        <td th:text="${userAuth.username}"></td>
+        <td th:text="${userAuth.password}"></td>
+        <td th:text="${userAuth.roles}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

@@ -23,7 +23,8 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    public Role() {}
+    public Role() {
+    }
 
     public Set<User> getUsers() {
         return users;
@@ -56,8 +57,6 @@ public class Role implements GrantedAuthority {
     public void setName(String name) {
         this.name = name;
     }
-
-
 
     @Override
     public String getAuthority() {

@@ -3,7 +3,6 @@ package com.example.springsecurity2.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
@@ -40,6 +39,11 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
 
     private Set<Role> roles = new HashSet<>();
+
+    public UserDetails fromUser() {
+        return new org.springframework.security.core.userdetails.User(
+                getUsername(), getPassword(), getAuthorities());
+    }
 
     public Long getId() {
         return id;
@@ -97,9 +101,4 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
-    public UserDetails fromUser() {
-        return new org.springframework.security.core.userdetails.User(
-                getUsername(), getPassword(), getAuthorities());
-    }
-
 }

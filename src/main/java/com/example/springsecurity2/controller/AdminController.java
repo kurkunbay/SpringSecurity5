@@ -31,33 +31,33 @@ public class AdminController {
     }
 
     @GetMapping()
-    public String findAll(Model model){
+    public String findAll(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
         return "user-list";
     }
 
     @GetMapping("/user-create")
-    public String createUserForm(User user, Model model){
+    public String createUserForm(User user, Model model) {
         List<Role> listRoles = roleService.getAllRoles();
         model.addAttribute("listRoles", listRoles);
         return "user-create";
     }
 
     @PostMapping("/user-create")
-    public String createUser(User user){
+    public String createUser(User user) {
         userService.saveUser(user);
         return "redirect:/admin";
     }
 
     @GetMapping("user-delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id){
+    public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteById(id);
         return "redirect:/admin";
     }
 
     @GetMapping("/user-update/{id}")
-    public String updateUserForm (@PathVariable("id") Long id, Model model){
+    public String updateUserForm(@PathVariable("id") Long id, Model model) {
         User user = userService.findById(id);
         List<Role> listRoles = roleService.getAllRoles();
         model.addAttribute("user", user);
@@ -66,7 +66,7 @@ public class AdminController {
     }
 
     @PostMapping("/user-update")
-    public String updateUser(User user){
+    public String updateUser(User user) {
         userService.saveUser(user);
         return "redirect:/admin";
     }
