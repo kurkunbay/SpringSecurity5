@@ -16,17 +16,28 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
     @Column(name = "password")
     private String password;
 
+    @Column(name = "first_Name")
+    private String firstName;
 
-    public User(Long id, String username, String password, Set<Role> roles) {
+    @Column(name = "last_Name")
+    private String lastName;
+
+    @Column(name = "age")
+    private int age;
+
+    public User(Long id, String email, String password, String firstName, String lastName, int age, Set<Role> roles) {
         this.id = id;
-        this.username = username;
+        this.email = email;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
         this.roles = roles;
     }
 
@@ -53,12 +64,39 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getUsername() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
