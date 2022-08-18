@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -39,9 +40,9 @@ public class AdminController {
     }
 
     @GetMapping("/user-create")
-    public String createUserForm(User user, Model model) {
-        List<Role> listRoles = roleService.getAllRoles();
-        model.addAttribute("listRoles", listRoles);
+    public String createUserForm(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("listRoles", roleService.getAllRoles());
         return "user-create";
     }
 
@@ -60,7 +61,7 @@ public class AdminController {
     @GetMapping("/user-update/{id}")
     public String updateUserForm(@PathVariable("id") Long id, Model model) {
         User user = userService.findById(id);
-        List<Role> listRoles = roleService.getAllRoles();
+        Set<Role> listRoles = roleService.getAllRoles();
         model.addAttribute("user", user);
         model.addAttribute("listRoles", listRoles);
         return "/user-update";

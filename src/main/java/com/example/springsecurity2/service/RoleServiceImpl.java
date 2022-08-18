@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -32,11 +33,9 @@ public class RoleServiceImpl implements RoleService {
         roleDAO.save(role);
     }
 
-
-
     @Override
-    public List<Role> getAllRoles() {
-        return (List<Role>) roleDAO.findAll();
+    public Set<Role> getAllRoles() {
+        return roleDAO.findAll();
     }
 
     @Override
