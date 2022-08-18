@@ -32,10 +32,7 @@ public class RoleServiceImpl implements RoleService {
         roleDAO.save(role);
     }
 
-    @Override
-    public Role getRoleById(Long id) {
-        return roleDAO.findById(id).get();
-    }
+
 
     @Override
     public List<Role> getAllRoles() {

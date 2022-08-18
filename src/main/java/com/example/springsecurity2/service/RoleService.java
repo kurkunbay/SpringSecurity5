@@ -11,7 +11,6 @@ public interface RoleService {
 
     void updateRole(Role role);
 
-    Role getRoleById(Long id);
 
     Role getRoleByName(String name);
 
