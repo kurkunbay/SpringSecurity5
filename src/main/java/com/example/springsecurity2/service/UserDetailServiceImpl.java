@@ -1,5 +1,6 @@
 package com.example.springsecurity2.service;
 
+import com.example.springsecurity2.DAO.UserDAO;
 import com.example.springsecurity2.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,20 +13,21 @@ import javax.transaction.Transactional;
 @Service("userDetailsServiceImpl")
 public class UserDetailServiceImpl implements UserDetailsService {
 
-    final UserService userService;
+    private final UserDAO userDAO;
 
     @Autowired
-    public UserDetailServiceImpl(UserService userService) {
-        this.userService = userService;
+    public UserDetailServiceImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.findByEmail(username);
+        User user = userDAO.getUserByName(username);
+        if (user == null){
+            throw new UsernameNotFoundException("Unknown user " + username);
+        }
 
-        System.out.println(user.getAuthorities().toString());
-        return user.fromUser();
+        return user;
     }
 
 

@@ -2,44 +2,47 @@ package com.example.springsecurity2.service;
 
 import com.example.springsecurity2.DAO.RoleDAO;
 import com.example.springsecurity2.model.Role;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
 
 @Service
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl implements RoleService{
 
     private final RoleDAO roleDAO;
 
-    @Autowired
     public RoleServiceImpl(RoleDAO roleDAO) {
         this.roleDAO = roleDAO;
     }
 
+    @Transactional
     @Override
-    public void createRole(Role role) {
-        roleDAO.save(role);
+    public Role findRolesById(Long id) {
+        return roleDAO.findRoleById(id);
+    }
+
+    @Transactional
+    @Override
+    public Role findRoleByName(String name) {
+        return roleDAO.findRoleByName(name);
+    }
+
+    @Transactional
+    @Override
+    public List<Role> getAllRoles() {
+        return roleDAO.getAllRoles();
+    }
+
+    @Transactional
+    @Override
+    public Set<Role> findRolesSetById(Long[] id) {
+        return roleDAO.findRolesSetById(id);
     }
 
     @Override
-    public void deleteRole(Role role) {
-        roleDAO.delete(role);
-    }
-
-    @Override
-    public void updateRole(Role role) {
-        roleDAO.save(role);
-    }
-
-    @Override
-    public Set<Role> getAllRoles() {
-        return roleDAO.findAll();
-    }
-
-    @Override
-    public Role getRoleByName(String name) {
-        return roleDAO.findByName(name);
+    public Set<Role> findRoleSetByName(String[] names) {
+        return roleDAO.findRoleSetByName(names);
     }
 }

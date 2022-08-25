@@ -22,7 +22,7 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/user")
     public String userPage(@AuthenticationPrincipal User userAuth, Model model) {
-        model.addAttribute("userAuth", userService.findByEmail(userAuth.getUsername()));
+        model.addAttribute("userAuth", userService.getUserByName(userAuth.getUsername()));
         return "user";
     }
 }

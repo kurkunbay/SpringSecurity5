@@ -6,16 +6,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface UserDAO  {
-    User findById(Long id);
+public interface UserDAO {
+    void addUser(User user);
 
-     List<User> findAll();
+    User getUserById(long id);
 
-    void deleteById(Long id);
+    User getUserByName(String name);
 
-    User findByEmail(String email);
+    List<User> getAllUsers();
 
-    User getOne(Long id);
+    void updateUser(User user);
 
-    User save(User user);
+    void removeUser(long id);
 }

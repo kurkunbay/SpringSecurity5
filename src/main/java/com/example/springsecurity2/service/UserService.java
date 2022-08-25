@@ -6,13 +6,18 @@ import com.example.springsecurity2.model.User;
 import java.util.List;
 
 public interface UserService {
-    User findById(Long id);
+    User addUser(User user, Long[] roles);
 
-    List<User> findAll();
+    User getUserById(long id);
 
-    User saveUser(User user);
+    User getUserByName(String name);
 
-    void deleteById(Long id);
+    void updateUser(User user, Long[] roles);
 
-    User findByEmail(String email);
+    void removeUser(long id);
+
+    List<User> getAllUsers();
+
+
+
 }

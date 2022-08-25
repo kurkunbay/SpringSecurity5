@@ -14,31 +14,55 @@ import java.util.stream.Collectors;
 
 
 @Repository
-public class RoleDAOImpl implements RoleDAO{
+public class RoleDAOImpl implements RoleDAO {
+
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public Role findByName(String role) {
-        return entityManager.createQuery("select role from Role role where role.name=:role", Role.class)
-                .setParameter("role", role).getSingleResult();
+    public void addRoleAdmin() {
+        Role admin = new Role(1L, "ROLE_ADMIN");
+        entityManager.persist(admin);
     }
 
     @Override
-    public void save(Role role) {
-        entityManager.persist(role);
+    public void addRoleUser() {
+        Role user = new Role(2L, "ROLE_USER");
+        entityManager.persist(user);
     }
 
     @Override
-    public void delete(Role role) {
-        entityManager.remove(role);
+    public Role findRoleById(Long id) {
+        return entityManager.find(Role.class, id);
     }
 
     @Override
-    public Set<Role> findAll() {
-        List<Role> list = entityManager
-                .createQuery("select role from Role role", Role.class)
-                .getResultList();
-        return new HashSet<>(list);
+    public Set<Role> findRolesSetById(Long[] id) {
+        TypedQuery<Role> query = entityManager
+                .createQuery("select r from Role r where  r.id IN :id", Role.class)
+                .setParameter("id", Arrays.asList(id));
+        return query.getResultStream().collect(Collectors.toSet());
+    }
+
+    @Override
+    public Role findRoleByName(String name) {
+        TypedQuery<Role> query = entityManager
+                .createQuery("select r from Role r where  r.name =:name", Role.class)
+                .setParameter("name", name);
+        return query.getResultList().stream().findAny().orElse(null);
+    }
+
+    @Override
+    public Set<Role> findRoleSetByName(String[] names) {
+        TypedQuery<Role> query = entityManager
+                .createQuery("select r from Role r where  r.name IN :names", Role.class)
+                .setParameter("names", Arrays.asList(names));
+        return query.getResultStream().collect(Collectors.toSet());
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+        TypedQuery<Role> typedQuery = entityManager.createQuery("SELECT r FROM  Role r", Role.class);
+        return typedQuery.getResultList();
     }
 }

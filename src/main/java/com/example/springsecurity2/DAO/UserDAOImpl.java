@@ -14,38 +14,42 @@ public class UserDAOImpl implements UserDAO{
     private EntityManager entityManager;
 
     @Override
-    public User findById(Long id) {
-        return entityManager.find(User.class, id);
-    }
-
-    @Override
-    public List<User> findAll() {
-        return entityManager.createQuery("select user from User user", User.class).getResultList();
-    }
-
-    @Override
-    public User save(User user) {
+    public void addUser(User user) {
         entityManager.persist(user);
-        return user;
     }
 
     @Override
-    public void deleteById(Long id) {
-        entityManager.remove(entityManager.find(User.class, id));
-    }
-
-    @Override
-    public User findByEmail(String email) {
-        return entityManager.createQuery("select user from User user where user.email=:email", User.class)
-                .setParameter("email", email).getSingleResult();
-    }
-
-    @Override
-    public User getOne(Long id) {
+    public User getUserById(long id) {
         TypedQuery<User> query = entityManager
                 .createQuery("select distinct u from User u JOIN FETCH u.roles where u.id = :id", User.class);
         query.setParameter("id", id);
         return query.getSingleResult();
     }
 
+    @Override
+    public User getUserByName(String name) {
+        TypedQuery<User> query = entityManager
+                .createQuery("select distinct u from User u JOIN FETCH u.roles where u.email =:name ", User.class)
+                .setParameter("name", name);
+
+        return query.getResultList().stream().findAny().orElse(null);
+
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return entityManager.createQuery
+                        ("select distinct u from User u join fetch u.roles order by u.email", User.class)
+                .getResultList();
+    }
+
+    @Override
+    public void updateUser(User user) {
+        entityManager.merge(user);
+    }
+
+    @Override
+    public void removeUser(long id) {
+        entityManager.remove(getUserById(id));
+    }
 }
