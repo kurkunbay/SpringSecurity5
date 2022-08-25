@@ -21,8 +21,8 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/user")
-    public String userPage(@AuthenticationPrincipal User userAuth, Model model) {
-        model.addAttribute("userAuth", userService.getUserByName(userAuth.getUsername()));
+    public String userPage(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("user", userService.getUserByName(user.getUsername()));
         return "user";
     }
 }

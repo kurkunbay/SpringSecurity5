@@ -1,35 +1,35 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>User</title>
 </head>
 <body>
-<form th:action="@{/logout}" th:method="POST">
-    <button type="submit">Выйти из учетной записи</button>
-</form>
-<h1>User, welcome spring boot security page!</h1>
-<table border="1">
-    <thead>
+<h2>Страница пользователя</h2>
+<br>
+<p><a th:href="@{/}"> Вернуться на главную страницу </a></p>
+
+<table border="3">
     <tr>
-        <th>ID</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Age</th>
-        <th>E-mail</th>
-        <th>ROLE</th>
+        <th>Id</th>
+        <th>UserName</th>
+        <th>Password</th>
+        <th>Roles</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
-    </thead>
-    <tbody>
+
     <tr>
-        <th th:text="${userAuth.id}" scope="row"></th>
-        <th th:text="${userAuth.firstName}"></th>
-        <th th:text="${userAuth.lastName}"></th>
-        <th th:text="${userAuth.age}"></th>
-        <td th:text="${userAuth.email}"></td>
-        <td th:text="${userAuth.roles}"></td>
+        <td th:utext="${user.getId()}"></td>
+        <td><a th:utext="${user.getUsername()}">...</a></td>
+        <td><a th:utext="${user.getPassword()}">...</a></td>
+        <td th:utext="${user.getRoles()}"></td>
+        <td><a th:href="@{/admin/{userId}/edit(userId=${user.id})}">Edit</a></td>
+        <td><a th:href="@{/admin/{userId}/delete(userId=${user.id})}">Delete</a></td>
     </tr>
-    </tbody>
+
 </table>
+<br>
+<a th:href="@{/logout}">Logout</a>
 </body>
 </html>

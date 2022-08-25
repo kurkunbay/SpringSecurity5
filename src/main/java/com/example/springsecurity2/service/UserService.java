@@ -19,5 +19,5 @@ public interface UserService {
     List<User> getAllUsers();
 
 
-
+    void addUserWithRole(User user, String[] roles);
 }

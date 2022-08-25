@@ -23,24 +23,24 @@ public class Init {
     @Transactional
     public void postConstruct() {
         User admin = new User();
-        admin.setEmail("admin@admin.com");
-        admin.setFirstName("Vasya");
-        admin.setLastName("Ivanov");
-        admin.setAge(44);
+        admin.setUsername("admin@admin.com");
+        admin.setFirstname("Vasya");
+        admin.setLastname("Ivanov");
+
         admin.setPassword("$2a$12$sn9KvEVkIANLssoCvEnh0.XqIxsE3BwaLt5qSltxaOj11eQoLCj8i"); //Password: user
 
         User user = new User();
-        user.setEmail("user@user.com");
-        user.setFirstName("Petya");
-        user.setLastName("Sidorov");
-        user.setAge(13);
+        user.setUsername("user@user.com");
+        user.setFirstname("Petya");
+        user.setLastname("Sidorov");
+
         user.setPassword("$2a$12$sn9KvEVkIANLssoCvEnh0.XqIxsE3BwaLt5qSltxaOj11eQoLCj8i"); //Password: user
 
         User user2 = new User();
-        user2.setEmail("user2@user2.com");
-        user2.setFirstName("Pasha");
-        user2.setLastName("Petrov");
-        user2.setAge(24);
+        user2.setUsername("user2@user2.com");
+        user2.setFirstname("Pasha");
+        user2.setLastname("Petrov");
+
         user2.setPassword("$2a$12$sn9KvEVkIANLssoCvEnh0.XqIxsE3BwaLt5qSltxaOj11eQoLCj8i"); //Password: user
 
         Role role = new Role();

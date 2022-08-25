@@ -4,25 +4,22 @@
 <title>Create user</title>
 </head>
 <body>
-<form action="#" th:action="@{/admin/user-update}" th:object="${user}" method="post">
-    <label for="id">ID</label>
-    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+<form th:method="PATCH" th:action="@{/admin/edit}" th:object="${getUserById}">
+    <input type="hidden" th:field="*{id}" readonly="readonly"/>
+    <br>
+    <label for="username">Enter Username: </label>
+    <input type="text" th:field="*{username}" id="username"/>
+    <br>
+    <label for="password">Enter password: </label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <br>
+    <label for="firstName">Firstname</label>
+    <input type="text" th:field="*{firstname}" id="firstname" placeholder="firstname">
     <br/>
-    <label for="email">email</label>
-    <input type="text" th:field="*{email}" id="email" placeholder="email">
+    <label for="lastName">Lastname</label>
+    <input type="text" th:field="*{lastname}" id="lastName" placeholder="lastname">
     <br/>
-    <label for="password">Password</label>
-    <input type="text" th:field="*{password}" id="password" placeholder="password">
-    <br/>
-    <label for="firstName">FirstName</label>
-    <input type="text" th:field="*{firstName}" id="firstName" placeholder="password">
-    <br/>
-    <label for="lastName">LastName</label>
-    <input type="text" th:field="*{lastName}" id="lastName" placeholder="lastName">
-    <br/>
-    <label for="age">Age</label>
-    <input type="text" th:field="*{age}" id="age" placeholder="age">
-    <br/>
+
     <div class="form-group row">
         <label class="col-4 col-form-label">Roles: </label>
         <div class="col-8">

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -74,7 +76,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user, Long[] roles) {
         User modifyUser = userDAO.getUserById(user.getId());
-        modifyUser.setEmail(user.getUsername());
+        modifyUser.setUsername(user.getUsername());
 
         Set<Role> roleSet = roleDAO.findRolesSetById(roles);
         modifyUser.setRoles(roleSet);
@@ -95,6 +97,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userDAO.getAllUsers();
+    }
+
+    @Override
+    public void addUserWithRole(User user, String[] role) {
+        user.setPassword(user.getPassword());
+        Set<Role> roles = new HashSet<>();
+        Arrays.stream(role).forEach(e -> roles.add(roleDAO.findRoleByName(e)));
+        user.setRoles(roles);
+        userDAO.addUser(user);
     }
 
 }

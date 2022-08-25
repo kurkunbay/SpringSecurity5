@@ -37,22 +37,7 @@ public class AdminController {
         return "user-list";
     }
 
-    @GetMapping("/new-user")
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("listRoles", roleService.getAllRoles());
-        return "registration";
-    }
-    @PostMapping("/new-user")
-    public String createNewUser(@ModelAttribute("user")  User userForm, BindingResult bindingResult,
-                                @RequestParam(required = false, name = "roles") Long[] rolesId) {
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
 
-        userService.addUser(userForm, rolesId);
-        return "redirect:/admin";
-    }
 
 
     @GetMapping("/user-create")
@@ -63,10 +48,25 @@ public class AdminController {
     }
 
     @PostMapping("/user-create")
-    public String createUser(@ModelAttribute("user")  User userForm, BindingResult bindingResult,
+    public String createUser(@ModelAttribute("user")  User userForm,
                              @RequestParam(required = false, name = "roles") Long[] rolesId) {
         userService.addUser(userForm, rolesId);
         return "redirect:/admin";
+    }
+
+    @GetMapping(value = "/user-info")
+    public String addNewUser(@ModelAttribute("user") User user,
+                             Model model) {
+        model.addAttribute("userRole", roleService.findRoleByName("ROLE_USER"));
+        model.addAttribute("adminRole", roleService.findRoleByName("ROLE_ADMIN"));
+        return "user-info";
+    }
+
+    @PostMapping(value = "/saveUser")
+    public String saveUser(@ModelAttribute("user") User user,
+                           @RequestParam(value = "role") String[] roles) {
+        userService.addUserWithRole(user, roles);
+        return "redirect:/admin/";
     }
 
     @GetMapping("user-delete/{id}")
