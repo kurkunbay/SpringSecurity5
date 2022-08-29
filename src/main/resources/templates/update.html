@@ -4,7 +4,7 @@
 <title>Create user</title>
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/admin/edit}" th:object="${getUserById}">
+<form th:method="PATCH" th:action="@{/admin/update/{id}}" th:object="${getUserById}">
     <input type="hidden" th:field="*{id}" readonly="readonly"/>
     <br>
     <label for="username">Enter Username: </label>

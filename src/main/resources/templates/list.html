@@ -35,15 +35,15 @@
                         <span th:attr="data-role=${role.getName()}" th:text="${role.getName()}"></span>
                     </th:block>
                 </td>
-                <td><a th:href="@{admin/user-update/{id}(id=${user.id})}">Edit</a></td>
-                <td><a th:href="@{admin/user-delete/{id}(id=${user.id})}">Delete</a></td>
+                <td><a th:href="@{admin/update/{id}(id=${user.id})}">Edit</a></td>
+                <td><a th:href="@{admin/delete/{id}(id=${user.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/admin/user-create">Create user</a></p>
+    <p><a href="/admin/create">Create user</a></p>
     </br>
-    <p><a href="/admin/user-info">Create user again</a></p>
+    <p><a href="/admin/info">Create user again</a></p>
 
 </div>
 </body>

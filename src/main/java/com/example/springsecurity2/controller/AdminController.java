@@ -34,32 +34,32 @@ public class AdminController {
     public String findAll(Model model) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
-        return "user-list";
+        return "list";
     }
 
 
 
 
-    @GetMapping("/user-create")
+    @GetMapping("/create")
     public String createUserForm(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("listRoles", roleService.getAllRoles());
-        return "user-create";
+        return "create";
     }
 
-    @PostMapping("/user-create")
+    @PostMapping("/create")
     public String createUser(@ModelAttribute("user")  User userForm,
                              @RequestParam(required = false, name = "roles") Long[] rolesId) {
         userService.addUser(userForm, rolesId);
         return "redirect:/admin";
     }
 
-    @GetMapping(value = "/user-info")
+    @GetMapping(value = "/info")
     public String addNewUser(@ModelAttribute("user") User user,
                              Model model) {
         model.addAttribute("userRole", roleService.findRoleByName("ROLE_USER"));
         model.addAttribute("adminRole", roleService.findRoleByName("ROLE_ADMIN"));
-        return "user-info";
+        return "info";
     }
 
     @PostMapping(value = "/saveUser")
@@ -69,22 +69,22 @@ public class AdminController {
         return "redirect:/admin/";
     }
 
-    @GetMapping("user-delete/{id}")
+    @GetMapping("delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.removeUser(id);
         return "redirect:/admin";
     }
 
-    @GetMapping("/user-update/{id}")
+    @GetMapping("/update/{id}")
     public String updateUserForm(@PathVariable("id") Long id, Model model) {
         User user = userService.getUserById(id);
         List<Role> roles =  roleService.getAllRoles();
         model.addAttribute("getUserById", user);
         model.addAttribute("listRoles", roles );
-        return "/user-update";
+        return "/update";
     }
 
-    @PostMapping("/user-update")
+    @PostMapping("/update")
     public String updateUser(@ModelAttribute("user")  User user,
                              @RequestParam(required = false, name = "roles") Long[] roles) {
         userService.updateUser(user, roles);

@@ -9,26 +9,26 @@
 <br>
 <p><a th:href="@{/}"> Вернуться на главную страницу </a></p>
 
-<table border="3">
-    <tr>
-        <th>Id</th>
-        <th>UserName</th>
-        <th>Password</th>
-        <th>Roles</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
+<!--<table border="3">-->
+<!--    <tr>-->
+<!--        <th>Id</th>-->
+<!--        <th>UserName</th>-->
+<!--        <th>Password</th>-->
+<!--        <th>Roles</th>-->
+<!--        <th>Edit</th>-->
+<!--        <th>Delete</th>-->
+<!--    </tr>-->
 
-    <tr>
-        <td th:utext="${user.getId()}"></td>
-        <td><a th:utext="${user.getUsername()}">...</a></td>
-        <td><a th:utext="${user.getPassword()}">...</a></td>
-        <td th:utext="${user.getRoles()}"></td>
-        <td><a th:href="@{/admin/{userId}/edit(userId=${user.id})}">Edit</a></td>
-        <td><a th:href="@{/admin/{userId}/delete(userId=${user.id})}">Delete</a></td>
-    </tr>
+<!--    <tr>-->
+<!--        <td th:utext="${user.getId()}"></td>-->
+<!--        <td><a th:utext="${user.getUsername()}">...</a></td>-->
+<!--        <td><a th:utext="${user.getPassword()}">...</a></td>-->
+<!--        <td th:utext="${user.getRoles()}"></td>-->
+<!--        <td><a th:href="@{/admin/{userId}/edit(userId=${user.id})}">Edit</a></td>-->
+<!--        <td><a th:href="@{/admin/{userId}/delete(userId=${user.id})}">Delete</a></td>-->
+<!--    </tr>-->
 
-</table>
+<!--</table>-->
 <br>
 <a th:href="@{/logout}">Logout</a>
 </body>
