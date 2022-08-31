@@ -6,6 +6,9 @@ import com.example.springsecurity2.DAO.UserDAO;
 import com.example.springsecurity2.model.Role;
 import com.example.springsecurity2.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserDAO userDAO;
 
@@ -108,4 +111,13 @@ public class UserServiceImpl implements UserService {
         userDAO.addUser(user);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userDAO.getUserByName(username);
+        if (user == null){
+            throw new UsernameNotFoundException("Unknown user " + username);
+        }
+
+        return user;
+    }
 }
