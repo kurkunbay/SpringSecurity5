@@ -18,20 +18,21 @@ public class User implements UserDetails {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "surname")
-    private String surname;
-
-    @Column(name = "phone")
-    private String phone;
-
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "firstname")
+    private String firstname;
+
+    @Column(name = "lastname")
+    private String lastname;
+
+    @Column(name = "age")
+    private String age;
+
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -44,10 +45,10 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String surname, String phone, String email, String password, Set<Role> roles) {
-        this.name = name;
-        this.surname = surname;
-        this.phone = phone;
+    public User(String firstname, String lastname, String age, String email, String password, Set<Role> roles) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.age = age;
         this.email = email;
         this.password = password;
         this.roles = roles;
@@ -61,28 +62,28 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String name) {
+        this.firstname = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastname(String surname) {
+        this.lastname = surname;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getAge() {
+        return age;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAge(String phone) {
+        this.age = phone;
     }
 
     public String getEmail() {
@@ -143,9 +144,9 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", phone='" + phone + '\'' +
+                ", name='" + firstname + '\'' +
+                ", surname='" + lastname + '\'' +
+                ", phone='" + age + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", roles=" + roles +
@@ -158,9 +159,9 @@ public class User implements UserDetails {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(surname, user.surname) &&
-                Objects.equals(phone, user.phone) &&
+                Objects.equals(firstname, user.firstname) &&
+                Objects.equals(lastname, user.lastname) &&
+                Objects.equals(age, user.age) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(roles, user.roles);
@@ -168,6 +169,6 @@ public class User implements UserDetails {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, phone, email, password, roles);
+        return Objects.hash(id, firstname, lastname, age, email, password, roles);
     }
 }

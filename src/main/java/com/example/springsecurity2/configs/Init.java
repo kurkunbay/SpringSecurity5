@@ -24,22 +24,22 @@ public class Init {
     public void postConstruct() {
         User admin = new User();
         admin.setEmail("admin@admin.com");
-        admin.setName("Vasya");
-        admin.setSurname("Ivanov");
+        admin.setFirstname("Vasya");
+        admin.setLastname("Ivanov");
 
         admin.setPassword("$2a$12$sn9KvEVkIANLssoCvEnh0.XqIxsE3BwaLt5qSltxaOj11eQoLCj8i"); //Password: user
 
         User user = new User();
         user.setEmail("user@user.com");
-        user.setName("Petya");
-        user.setSurname("Sidorov");
+        user.setFirstname("Petya");
+        user.setLastname("Sidorov");
 
         user.setPassword("$2a$12$sn9KvEVkIANLssoCvEnh0.XqIxsE3BwaLt5qSltxaOj11eQoLCj8i"); //Password: user
 
         User user2 = new User();
         user2.setEmail("user2@user2.com");
-        user2.setName("Pasha");
-        user2.setSurname("Petrov");
+        user2.setFirstname("Pasha");
+        user2.setLastname("Petrov");
 
         user2.setPassword("$2a$12$sn9KvEVkIANLssoCvEnh0.XqIxsE3BwaLt5qSltxaOj11eQoLCj8i"); //Password: user
 
