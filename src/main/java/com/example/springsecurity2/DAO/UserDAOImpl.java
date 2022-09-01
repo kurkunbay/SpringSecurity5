@@ -9,47 +9,43 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-public class UserDAOImpl implements UserDAO{
+public class UserDAOImpl implements UserDAO {
+
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Override
-    public void addUser(User user) {
-        entityManager.persist(user);
-    }
-
-    @Override
-    public User getUserById(long id) {
-        TypedQuery<User> query = entityManager
-                .createQuery("select distinct u from User u JOIN FETCH u.roles where u.id = :id", User.class);
-        query.setParameter("id", id);
-        return query.getSingleResult();
-    }
-
-    @Override
-    public User getUserByName(String name) {
-        TypedQuery<User> query = entityManager
-                .createQuery("select distinct u from User u JOIN FETCH u.roles where u.username =:name ", User.class)
-                .setParameter("name", name);
-
-        return query.getResultList().stream().findAny().orElse(null);
-
-    }
 
     @Override
     public List<User> getAllUsers() {
-        return entityManager.createQuery
-                        ("select distinct u from User u join fetch u.roles order by u.username", User.class)
-                .getResultList();
+        List<User> allUsers = entityManager.createQuery("select distinct u from User as u join fetch u.roles", User.class).getResultList();
+        return allUsers;
     }
 
     @Override
-    public void updateUser(User user) {
+    public void saveUser(User user) {
         entityManager.merge(user);
     }
 
     @Override
-    public void removeUser(long id) {
-        entityManager.remove(getUserById(id));
+    public User getUserById(Long id) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT users FROM User users join fetch users.roles WHERE users.id = :id", User.class);
+        return query
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        entityManager.remove(entityManager.find(User.class, id));
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT user FROM User user WHERE user.email = :name", User.class);
+        return query
+                .setParameter("name", email)
+                .getSingleResult();
     }
 }

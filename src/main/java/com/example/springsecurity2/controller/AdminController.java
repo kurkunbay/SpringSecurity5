@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
@@ -30,64 +31,44 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping()
-    public String findAll(Model model) {
-        List<User> users = userService.getAllUsers();
-        model.addAttribute("users", users);
-        return "list";
+    @GetMapping
+    public String user(Principal principal, Model model) {
+        String email = principal.getName();
+        User admin = userService.getUserByEmail(email);
+        model.addAttribute("admin", admin);
+        model.addAttribute("roles", admin.getRoles());
+        return "all-users";
     }
 
+    @GetMapping("/all-users")
+    public String showAllUsers(Model model) {
+        List<User> allUsers = userService.getAllUsers();
+        model.addAttribute("allUsers", allUsers);
+        return "all-users";
+    }
 
-
-
-    @GetMapping("/create")
-    public String createUserForm(Model model) {
+    @GetMapping("/addNewUser")
+    public String addNewUser(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("listRoles", roleService.getAllRoles());
-        return "create";
+        model.addAttribute("rolesNames", roleService.getAllRoles());
+        return "user-info";
     }
 
-    @PostMapping("/create")
-    public String createUser(@ModelAttribute("user")  User userForm,
-                             @RequestParam(required = false, name = "roles") Long[] rolesId) {
-        userService.addUser(userForm, rolesId);
-        return "redirect:/admin";
+    @GetMapping("/saveUser")
+    public String saveUser(@ModelAttribute("user") User user, @RequestParam(value = "rolesNames") String[] roles) {
+        userService.saveUser(user, roles);
+        return "redirect:/admin/all-users";
+    }
+    @GetMapping("/updateInfo/{id}")
+    public String updateUser(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("rolesNames", roleService.getAllRoles());
+        return "user-info";
     }
 
-    @GetMapping(value = "/info")
-    public String addNewUser(@ModelAttribute("user") User user,
-                             Model model) {
-        model.addAttribute("userRole", roleService.findRoleByName("ROLE_USER"));
-        model.addAttribute("adminRole", roleService.findRoleByName("ROLE_ADMIN"));
-        return "info";
-    }
-
-    @PostMapping(value = "/saveUser")
-    public String saveUser(@ModelAttribute("user") User user,
-                           @RequestParam(value = "role") String[] roles) {
-        userService.addUserWithRole(user, roles);
-        return "redirect:/admin/";
-    }
-
-    @GetMapping("delete/{id}")
+    @GetMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
-        userService.removeUser(id);
-        return "redirect:/admin";
-    }
-
-    @GetMapping("/update/{id}")
-    public String updateUserForm(@PathVariable("id") Long id, Model model) {
-        User user = userService.getUserById(id);
-        List<Role> roles =  roleService.getAllRoles();
-        model.addAttribute("getUserById", user);
-        model.addAttribute("listRoles", roles );
-        return "/update";
-    }
-
-    @PostMapping("/update")
-    public String updateUser(@ModelAttribute("user")  User user,
-                             @RequestParam(required = false, name = "roles") Long[] roles) {
-        userService.updateUser(user, roles);
-        return "redirect:/admin";
+        userService.deleteUserById(id);
+        return "redirect:/admin/all-users";
     }
 }

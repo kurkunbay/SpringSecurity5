@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All users</title>
+</head>
+<body>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
+
+<br/>
+
+<h1>Admin</h1>
+
+<div>
+    <table border="1" style="width:500px">
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Operations</th>
+        </tr>
+
+        <tr th:each="user : ${allUsers}">
+            <td th:utext="${user.name}">name</td>
+            <td th:utext="${user.surname}">surname</td>
+            <td th:utext="${user.phone}">phone</td>
+            <td th:utext="${user.email}">email</td>
+            <td th:utext="${user.password}">email</td>
+            <td>
+                <input type="button" value="Update"
+                       th:onclick="'window.location.href = \'' + @{/admin/updateInfo/{id} (id =${user.id})} + '\''"/>
+                <input type="button" value="Delete"
+                       th:onclick="'window.location.href = \'' + @{/admin/deleteUser/{id} (id =${user.id})} + '\''"/>
+            </td>
+        </tr>
+
+    </table>
+</div>
+
+<br>
+
+<input type="button" value="AddUser" onclick="window.location.href = 'addNewUser'"/>
+
+</body>
+</html>

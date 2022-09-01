@@ -1,16 +1,14 @@
 package com.example.springsecurity2.DAO;
 
 import com.example.springsecurity2.model.Role;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 
 @Repository
@@ -20,47 +18,37 @@ public class RoleDAOImpl implements RoleDAO {
     private EntityManager entityManager;
 
     @Override
-    public void addRoleAdmin() {
-        Role admin = new Role(1L, "ROLE_ADMIN");
-        entityManager.persist(admin);
-    }
-
-    @Override
-    public void addRoleUser() {
-        Role user = new Role(2L, "ROLE_USER");
-        entityManager.persist(user);
-    }
-
-    @Override
-    public Role findRoleById(Long id) {
-        return entityManager.find(Role.class, id);
-    }
-
-    @Override
-    public Set<Role> findRolesSetById(Long[] id) {
-        TypedQuery<Role> query = entityManager
-                .createQuery("select r from Role r where  r.id IN :id", Role.class)
-                .setParameter("id", Arrays.asList(id));
-        return query.getResultStream().collect(Collectors.toSet());
-    }
-
-    @Override
-    public Role findRoleByName(String role) {
-        return entityManager.createQuery("select role from Role role where role.name=:role", Role.class)
-                .setParameter("role", role).getSingleResult();
-    }
-
-    @Override
-    public Set<Role> findRoleSetByName(String[] names) {
-        TypedQuery<Role> query = entityManager
-                .createQuery("select r from Role r where  r.name IN :names", Role.class)
-                .setParameter("names", Arrays.asList(names));
-        return query.getResultStream().collect(Collectors.toSet());
-    }
-
-    @Override
     public List<Role> getAllRoles() {
-        TypedQuery<Role> typedQuery = entityManager.createQuery("SELECT r FROM  Role r", Role.class);
-        return typedQuery.getResultList();
+        List<Role> allRoles = entityManager.createQuery("from Role", Role.class).getResultList();
+        return allRoles;
+    }
+
+    @Override
+    public void saveRole(Role role) {
+        Session session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(role);
+    }
+
+    @Override
+    public void deleteRoleById(Long id) {
+        entityManager.remove(entityManager.find(Role.class, id));
+    }
+
+    @Override
+    public Role getRoleById(Long id) {
+        TypedQuery<Role> query = entityManager.createQuery(
+                "SELECT role FROM Role role WHERE role.id = :id", Role.class);
+        return query
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    @Override
+    public Role getByRoleName(String roleName) {
+        TypedQuery<Role> query = entityManager.createQuery(
+                "SELECT role FROM Role role WHERE role.role = :roleName", Role.class);
+        return query
+                .setParameter("roleName", roleName)
+                .getSingleResult();
     }
 }
