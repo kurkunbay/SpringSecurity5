@@ -31,7 +31,7 @@ public class User implements UserDetails {
     private String lastname;
 
     @Column(name = "age")
-    private String age;
+    private int age;
 
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -45,7 +45,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String firstname, String lastname, String age, String email, String password, Set<Role> roles) {
+    public User(String firstname, String lastname, int age, String email, String password, Set<Role> roles) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.age = age;
@@ -78,12 +78,12 @@ public class User implements UserDetails {
         this.lastname = surname;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String phone) {
-        this.age = phone;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getEmail() {
@@ -146,7 +146,7 @@ public class User implements UserDetails {
                 "id=" + id +
                 ", name='" + firstname + '\'' +
                 ", surname='" + lastname + '\'' +
-                ", phone='" + age + '\'' +
+                ", age='" + age + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", roles=" + roles +

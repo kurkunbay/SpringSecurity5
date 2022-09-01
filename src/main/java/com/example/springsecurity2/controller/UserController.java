@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/all")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
