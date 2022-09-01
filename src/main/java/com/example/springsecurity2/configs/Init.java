@@ -26,21 +26,21 @@ public class Init {
         admin.setEmail("admin@admin.com");
         admin.setFirstname("Vasya");
         admin.setLastname("Ivanov");
-
+        admin.setAge(24);
         admin.setPassword("$2a$12$sn9KvEVkIANLssoCvEnh0.XqIxsE3BwaLt5qSltxaOj11eQoLCj8i"); //Password: user
 
         User user = new User();
         user.setEmail("user@user.com");
         user.setFirstname("Petya");
         user.setLastname("Sidorov");
-
+        user.setAge(13);
         user.setPassword("$2a$12$sn9KvEVkIANLssoCvEnh0.XqIxsE3BwaLt5qSltxaOj11eQoLCj8i"); //Password: user
 
         User user2 = new User();
         user2.setEmail("user2@user2.com");
         user2.setFirstname("Pasha");
         user2.setLastname("Petrov");
-
+        user2.setAge(35);
         user2.setPassword("$2a$12$sn9KvEVkIANLssoCvEnh0.XqIxsE3BwaLt5qSltxaOj11eQoLCj8i"); //Password: user
 
         Role role = new Role();

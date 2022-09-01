@@ -30,7 +30,6 @@ public class AdminController {
         this.userService = userService;
         this.roleService = roleService;
     }
-
     @GetMapping
     public String user(Principal principal, Model model) {
         String email = principal.getName();
@@ -46,7 +45,6 @@ public class AdminController {
         model.addAttribute("allUsers", allUsers);
         return "all-users";
     }
-
     @GetMapping("/addNewUser")
     public String addNewUser(Model model) {
         model.addAttribute("user", new User());
