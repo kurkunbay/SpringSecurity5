@@ -1,21 +1,17 @@
 package com.example.springsecurity2.controller;
 
 
-import com.example.springsecurity2.model.Role;
 import com.example.springsecurity2.model.User;
 import com.example.springsecurity2.service.RoleService;
 import com.example.springsecurity2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")

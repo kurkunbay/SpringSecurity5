@@ -2,6 +2,7 @@ package com.example.springsecurity2.service;
 
 
 
+import com.example.springsecurity2.DAO.RoleDAO;
 import com.example.springsecurity2.DAO.UserDAO;
 import com.example.springsecurity2.model.Role;
 import com.example.springsecurity2.model.User;
@@ -22,13 +23,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserDAO userDAO;
 
-    private final RoleService roleService;
+    private final RoleDAO roleDAO;
 
     @Autowired
-    public UserServiceImpl(UserDAO userDAO,  RoleService roleService) {
+    public UserServiceImpl(UserDAO userDAO,  RoleDAO roleDAO) {
         this.userDAO = userDAO;
 
-        this.roleService = roleService;
+        this.roleDAO = roleDAO;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         Set<Role> roleSet = new HashSet<>();
         for (String roleName : roles) {
-            roleSet.add(roleService.getByRoleName(roleName));
+            roleSet.add(roleDAO.getByRoleName(roleName));
         }
         user.setRoles(roleSet);
         userDAO.saveUser(user);
