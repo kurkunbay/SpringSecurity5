@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,14 +23,15 @@ import java.util.Set;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserDAO userDAO;
-
     private final RoleDAO roleDAO;
+    private final PasswordEncoder passwordEncoder; // было без этой зависимости
 
     @Autowired
-    public UserServiceImpl(UserDAO userDAO,  RoleDAO roleDAO) {
+    public UserServiceImpl(UserDAO userDAO, RoleDAO roleDAO, PasswordEncoder passwordEncoder) {
         this.userDAO = userDAO;
 
         this.roleDAO = roleDAO;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -44,11 +46,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (user.getId() != null) {
             User oldUser = getUserById(user.getId());
             if (user.getPassword().equals("") || user.getPassword() == null ) {
-                user.setPassword(oldUser.getPassword());
+                user.setPassword(passwordEncoder.encode(user.getPassword())); //user.setPassword(user.getPassword())); - было так
                 System.out.println("Пароль не изменился");
             } else {
-                user.setPassword(user.getPassword());
-                System.out.println("Пароль изменился");
+                user.setPassword(passwordEncoder.encode(user.getPassword())); //user.setPassword(user.getPassword())); - было так
+                System.out.println("Пароль изменился"); 
             }
         } else {
             user.setPassword(user.getPassword());
